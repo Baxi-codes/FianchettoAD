@@ -1,3 +1,0 @@
-/home/dhairya/dev/FianchettoAD/build/CMakeFiles/FianchettoAD.dir
-/home/dhairya/dev/FianchettoAD/build/CMakeFiles/edit_cache.dir
-/home/dhairya/dev/FianchettoAD/build/CMakeFiles/rebuild_cache.dir
