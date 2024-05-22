@@ -129,29 +129,53 @@ FianchettoAD/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/FianchettoAD.dir/build.make CMakeFiles/FianchettoAD.dir/build
 .PHONY : FianchettoAD/fast
 
-src/parser/AST.o: src/parser/AST.cpp.o
-.PHONY : src/parser/AST.o
+src/Lexer.o: src/Lexer.cpp.o
+.PHONY : src/Lexer.o
 
 # target to build an object file
-src/parser/AST.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/FianchettoAD.dir/build.make CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.o
-.PHONY : src/parser/AST.cpp.o
+src/Lexer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FianchettoAD.dir/build.make CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.o
+.PHONY : src/Lexer.cpp.o
 
-src/parser/AST.i: src/parser/AST.cpp.i
-.PHONY : src/parser/AST.i
+src/Lexer.i: src/Lexer.cpp.i
+.PHONY : src/Lexer.i
 
 # target to preprocess a source file
-src/parser/AST.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/FianchettoAD.dir/build.make CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.i
-.PHONY : src/parser/AST.cpp.i
+src/Lexer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FianchettoAD.dir/build.make CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.i
+.PHONY : src/Lexer.cpp.i
 
-src/parser/AST.s: src/parser/AST.cpp.s
-.PHONY : src/parser/AST.s
+src/Lexer.s: src/Lexer.cpp.s
+.PHONY : src/Lexer.s
 
 # target to generate assembly for a file
-src/parser/AST.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/FianchettoAD.dir/build.make CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.s
-.PHONY : src/parser/AST.cpp.s
+src/Lexer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FianchettoAD.dir/build.make CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.s
+.PHONY : src/Lexer.cpp.s
+
+tests/lexer_test.o: tests/lexer_test.cpp.o
+.PHONY : tests/lexer_test.o
+
+# target to build an object file
+tests/lexer_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FianchettoAD.dir/build.make CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.o
+.PHONY : tests/lexer_test.cpp.o
+
+tests/lexer_test.i: tests/lexer_test.cpp.i
+.PHONY : tests/lexer_test.i
+
+# target to preprocess a source file
+tests/lexer_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FianchettoAD.dir/build.make CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.i
+.PHONY : tests/lexer_test.cpp.i
+
+tests/lexer_test.s: tests/lexer_test.cpp.s
+.PHONY : tests/lexer_test.s
+
+# target to generate assembly for a file
+tests/lexer_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FianchettoAD.dir/build.make CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.s
+.PHONY : tests/lexer_test.cpp.s
 
 # Help Target
 help:
@@ -162,9 +186,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... FianchettoAD"
-	@echo "... src/parser/AST.o"
-	@echo "... src/parser/AST.i"
-	@echo "... src/parser/AST.s"
+	@echo "... src/Lexer.o"
+	@echo "... src/Lexer.i"
+	@echo "... src/Lexer.s"
+	@echo "... tests/lexer_test.o"
+	@echo "... tests/lexer_test.i"
+	@echo "... tests/lexer_test.s"
 .PHONY : help
 
 

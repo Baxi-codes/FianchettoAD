@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.o -o FianchettoAD 
+/usr/bin/c++ CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.o CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.o -o FianchettoAD 

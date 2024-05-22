@@ -1,0 +1,9 @@
+differentiable double square(double x) {
+  return x * x;
+}
+
+int main() {
+  double y = square(5.0);
+  double dydx = square'(5.0); # Derivative of square at x = 5.0
+  return 0;
+}

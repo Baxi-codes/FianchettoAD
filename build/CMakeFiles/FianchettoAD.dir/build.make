@@ -69,31 +69,47 @@ include CMakeFiles/FianchettoAD.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/FianchettoAD.dir/flags.make
 
-CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.o: CMakeFiles/FianchettoAD.dir/flags.make
-CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.o: ../src/parser/AST.cpp
-CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.o: CMakeFiles/FianchettoAD.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dhairya/dev/FianchettoAD/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.o -MF CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.o.d -o CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.o -c /home/dhairya/dev/FianchettoAD/src/parser/AST.cpp
+CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.o: CMakeFiles/FianchettoAD.dir/flags.make
+CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.o: ../src/Lexer.cpp
+CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.o: CMakeFiles/FianchettoAD.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dhairya/dev/FianchettoAD/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.o -MF CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.o.d -o CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.o -c /home/dhairya/dev/FianchettoAD/src/Lexer.cpp
 
-CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dhairya/dev/FianchettoAD/src/parser/AST.cpp > CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.i
+CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dhairya/dev/FianchettoAD/src/Lexer.cpp > CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.i
 
-CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dhairya/dev/FianchettoAD/src/parser/AST.cpp -o CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.s
+CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dhairya/dev/FianchettoAD/src/Lexer.cpp -o CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.s
+
+CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.o: CMakeFiles/FianchettoAD.dir/flags.make
+CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.o: ../tests/lexer_test.cpp
+CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.o: CMakeFiles/FianchettoAD.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dhairya/dev/FianchettoAD/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.o -MF CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.o.d -o CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.o -c /home/dhairya/dev/FianchettoAD/tests/lexer_test.cpp
+
+CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dhairya/dev/FianchettoAD/tests/lexer_test.cpp > CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.i
+
+CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dhairya/dev/FianchettoAD/tests/lexer_test.cpp -o CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.s
 
 # Object files for target FianchettoAD
 FianchettoAD_OBJECTS = \
-"CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.o"
+"CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.o" \
+"CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.o"
 
 # External object files for target FianchettoAD
 FianchettoAD_EXTERNAL_OBJECTS =
 
-FianchettoAD: CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.o
+FianchettoAD: CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.o
+FianchettoAD: CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.o
 FianchettoAD: CMakeFiles/FianchettoAD.dir/build.make
 FianchettoAD: CMakeFiles/FianchettoAD.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/dhairya/dev/FianchettoAD/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable FianchettoAD"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/dhairya/dev/FianchettoAD/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable FianchettoAD"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/FianchettoAD.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

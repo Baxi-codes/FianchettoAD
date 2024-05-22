@@ -81,12 +81,12 @@ clean: CMakeFiles/FianchettoAD.dir/clean
 CMakeFiles/FianchettoAD.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/FianchettoAD.dir/build.make CMakeFiles/FianchettoAD.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/FianchettoAD.dir/build.make CMakeFiles/FianchettoAD.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dhairya/dev/FianchettoAD/build/CMakeFiles --progress-num=1,2 "Built target FianchettoAD"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dhairya/dev/FianchettoAD/build/CMakeFiles --progress-num=1,2,3 "Built target FianchettoAD"
 .PHONY : CMakeFiles/FianchettoAD.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/FianchettoAD.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dhairya/dev/FianchettoAD/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dhairya/dev/FianchettoAD/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/FianchettoAD.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/dhairya/dev/FianchettoAD/build/CMakeFiles 0
 .PHONY : CMakeFiles/FianchettoAD.dir/rule

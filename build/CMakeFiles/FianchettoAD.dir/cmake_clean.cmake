@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.o"
-  "CMakeFiles/FianchettoAD.dir/src/parser/AST.cpp.o.d"
+  "CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.o"
+  "CMakeFiles/FianchettoAD.dir/src/Lexer.cpp.o.d"
+  "CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.o"
+  "CMakeFiles/FianchettoAD.dir/tests/lexer_test.cpp.o.d"
   "FianchettoAD"
   "FianchettoAD.pdb"
 )
