@@ -1,16 +1,32 @@
+#include "lexer.h"
+#include <fstream>
 #include <iostream>
 #include <sstream>
-#include <fstream>
-#include "Lexer.h"
 
 int main(int argc, char const *argv[]) {
-	std::ifstream t(argv[1]);
-	std::stringstream buffer;
-	buffer << t.rdbuf();
-	Lexer lexer(std::string(buffer.str()));
-	std::vector<Token> tokens = lexer.tokenize();
-	for (auto token : tokens) {
-		std::cout << token.value << std::endl;
+  std::string filename(argv[1]);
+  Lexer lexer(filename);
+  std::vector<Token> tokens = lexer.tokenize();
+  for (auto token : tokens) {
+    if (token.type == TokenType::KEYWORD)
+      std::cout << "KEYWORD: ";
+    if (token.type == TokenType::IDENTIFIER)
+      std::cout << "IDENTIFIER: ";
+    if (token.type == TokenType::OPERATOR)
+      std::cout << "OPERATOR: ";
+    if (token.type == TokenType::INTEGER_LITERAL)
+      std::cout << "INTEGER_LITERAL: ";
+    if (token.type == TokenType::FLOAT_LITERAL)
+      std::cout << "FLOAT_LITERAL: ";
+    if (token.type == TokenType::STRING_LITERAL)
+      std::cout << "STRING_LITERAL: ";
+    if (token.type == TokenType::PUNCTUATION)
+      std::cout << "PUNCTUATION: ";
+    if (token.type == TokenType::PRIME)
+      std::cout << "PRIME: ";
+    if (token.type == TokenType::END_OF_FILE)
+      std::cout << "END_OF_FILE: ";
+    std::cout << token.value << std::endl;
 	}
 	return 0;
 }

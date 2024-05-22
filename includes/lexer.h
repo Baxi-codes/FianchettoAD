@@ -28,14 +28,6 @@ class Lexer {
   size_t position;
 
   Token nextToken();
-  Token identifier();
-  Token number();
-  Token stringLiteral();
-  Token op();
-  Token punctuation();
-  Token prime();
-  bool isOperator(char c);
-  bool isPunctuation(char c);
 
 public:
   Lexer(const std::string &source);
