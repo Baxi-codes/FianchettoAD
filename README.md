@@ -93,6 +93,6 @@ FianchettoAD is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Contact
 
-For any questions or support, please reach out to our team at [baxidhairya2312@gmail.com].
+For any questions or support, please reach out to me at [baxidhairya2312@gmail.com].
 
 Happy Coding with FianchettoAD!
