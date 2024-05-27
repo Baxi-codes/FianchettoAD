@@ -21,17 +21,18 @@ enum class TokenType {
 struct Token {
   TokenType type;
   std::string value;
+  int line,column;
 };
 
 class Lexer {
   std::string source;
   size_t position;
-
+  FILE* file_ptr;
   Token nextToken();
-
 public:
   Lexer(const std::string &source);
   std::vector<Token> tokenize();
+  ~Lexer();
 };
 
 #endif // LEXER_H

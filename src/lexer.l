@@ -5,66 +5,61 @@
 #include "lexer.h"
 
 #define YY_DECL Token Lexer::nextToken()
-static void comment(void);
+
+int column = 1;
+
+#define YY_USER_ACTION column += yyleng; // Update column number for each matched token
 
 %}
 
+%x COMMENT
 %option noyywrap
+%option yylineno
+
 
 %%
 "//".*                                          { /* Ignore single-line comment */ }
-"/*"                                            { comment(); }
-"differentiable"                                { return Token{TokenType::KEYWORD, yytext}; }
-"if"                                            { return Token{TokenType::KEYWORD, yytext}; }
-"else"                                          { return Token{TokenType::KEYWORD, yytext}; }
-"while"                                         { return Token{TokenType::KEYWORD, yytext}; }
-"for"                                           { return Token{TokenType::KEYWORD, yytext}; }
-"return"                                        { return Token{TokenType::KEYWORD, yytext}; }
-"int"                                           { return Token{TokenType::KEYWORD, yytext}; }
-"float"                                         { return Token{TokenType::KEYWORD, yytext}; }
-"double"                                        { return Token{TokenType::KEYWORD, yytext}; }
-"void"                                          { return Token{TokenType::KEYWORD, yytext}; }
-[a-zA-Z_][a-zA-Z0-9_]*                          { return Token{TokenType::IDENTIFIER, yytext}; }
-[0-9]*"."[0-9]+([eE][-+]?[0-9]+)?               { return Token{TokenType::FLOAT_LITERAL, yytext}; }
-[0-9]+                                          { return Token{TokenType::INTEGER_LITERAL, yytext}; }
-\"(\\.|[^"\\])*\"                               { return Token{TokenType::STRING_LITERAL, yytext}; }
-"+"                                             { return Token{TokenType::OPERATOR, yytext}; }
-"-"                                             { return Token{TokenType::OPERATOR, yytext}; }
-"*"                                             { return Token{TokenType::OPERATOR, yytext}; }
-"/"                                             { return Token{TokenType::OPERATOR, yytext}; }
-"="                                             { return Token{TokenType::OPERATOR, yytext}; }
-"=="                                            { return Token{TokenType::OPERATOR, yytext}; }
-"!="                                            { return Token{TokenType::OPERATOR, yytext}; }
-"<"                                             { return Token{TokenType::OPERATOR, yytext}; }
-">"                                             { return Token{TokenType::OPERATOR, yytext}; }
-"("                                             { return Token{TokenType::PUNCTUATION, yytext}; }
-")"                                             { return Token{TokenType::PUNCTUATION, yytext}; }
-"{"                                             { return Token{TokenType::PUNCTUATION, yytext}; }
-"}"                                             { return Token{TokenType::PUNCTUATION, yytext}; }
-";"                                             { return Token{TokenType::PUNCTUATION, yytext}; }
-","                                             { return Token{TokenType::PUNCTUATION, yytext}; }
-"."                                             { return Token{TokenType::PUNCTUATION, yytext}; }
-"'"                                             { return Token{TokenType::PUNCTUATION, yytext}; }
-[ \t\n\r]+                                      { /* Ignore whitespace */ }
+"/*"                                            { BEGIN(COMMENT); } // Begin of a multiline comment
+<COMMENT>{
+    "*/"    { BEGIN(INITIAL); } // End of a multiline comment
+    [^*\n]+ { column = 1; }  // eat comment in chunks
+    "*"     {  }  // eat the lone star
+    \n      { column = 1; } // Reset column number at the end of each line
+    .       {  } // Ignore other characters
+}
+"differentiable"                                { return Token{TokenType::KEYWORD, yytext, yylineno, column - yyleng}; }
+"if"                                            { return Token{TokenType::KEYWORD, yytext, yylineno, column - yyleng}; }
+"else"                                          { return Token{TokenType::KEYWORD, yytext, yylineno, column - yyleng}; }
+"while"                                         { return Token{TokenType::KEYWORD, yytext, yylineno, column - yyleng}; }
+"for"                                           { return Token{TokenType::KEYWORD, yytext, yylineno, column - yyleng}; }
+"return"                                        { return Token{TokenType::KEYWORD, yytext, yylineno, column - yyleng}; }
+"int"                                           { return Token{TokenType::KEYWORD, yytext, yylineno, column - yyleng}; }
+"float"                                         { return Token{TokenType::KEYWORD, yytext, yylineno, column - yyleng}; }
+"double"                                        { return Token{TokenType::KEYWORD, yytext, yylineno, column - yyleng}; }
+"void"                                          { return Token{TokenType::KEYWORD, yytext, yylineno, column - yyleng}; }
+[a-zA-Z_][a-zA-Z0-9_]*                          { return Token{TokenType::IDENTIFIER, yytext, yylineno, column - yyleng}; }
+[0-9]*"."[0-9]+([eE][-+]?[0-9]+)?               { return Token{TokenType::FLOAT_LITERAL, yytext, yylineno, column - yyleng}; }
+[0-9]+                                          { return Token{TokenType::INTEGER_LITERAL, yytext, yylineno, column - yyleng}; }
+\"(\\.|[^"\\])*\"                               { return Token{TokenType::STRING_LITERAL, yytext, yylineno, column - yyleng}; }
+"+"                                             { return Token{TokenType::OPERATOR, yytext, yylineno, column - yyleng}; }
+"-"                                             { return Token{TokenType::OPERATOR, yytext, yylineno, column - yyleng}; }
+"*"                                             { return Token{TokenType::OPERATOR, yytext, yylineno, column - yyleng}; }
+"/"                                             { return Token{TokenType::OPERATOR, yytext, yylineno, column - yyleng}; }
+"="                                             { return Token{TokenType::OPERATOR, yytext, yylineno, column - yyleng}; }
+"=="                                            { return Token{TokenType::OPERATOR, yytext, yylineno, column - yyleng}; }
+"!="                                            { return Token{TokenType::OPERATOR, yytext, yylineno, column - yyleng}; }
+"<"                                             { return Token{TokenType::OPERATOR, yytext, yylineno, column - yyleng}; }
+">"                                             { return Token{TokenType::OPERATOR, yytext, yylineno, column - yyleng}; }
+"("                                             { return Token{TokenType::PUNCTUATION, yytext, yylineno, column - yyleng}; }
+")"                                             { return Token{TokenType::PUNCTUATION, yytext, yylineno, column - yyleng}; }
+"{"                                             { return Token{TokenType::PUNCTUATION, yytext, yylineno, column - yyleng}; }
+"}"                                             { return Token{TokenType::PUNCTUATION, yytext, yylineno, column - yyleng}; }
+";"                                             { return Token{TokenType::PUNCTUATION, yytext, yylineno, column - yyleng}; }
+","                                             { return Token{TokenType::PUNCTUATION, yytext, yylineno, column - yyleng}; }
+"."                                             { return Token{TokenType::PUNCTUATION, yytext, yylineno, column - yyleng}; }
+"'"                                             { return Token{TokenType::PUNCTUATION, yytext, yylineno, column - yyleng}; }
+[ \t\r]+                                        { /* Ignore whitespace */ }
+\n                                              { column = 1; }
 .                                               { std::cerr << "Unknown character: " << yytext << std::endl; exit(1); }
 <<EOF>>                                         { return Token{TokenType::END_OF_FILE, ""}; }
 %%
-
-static void comment(void)
-{
-  int c;
-
-  while ((c = yyinput()) != 0)
-    if (c == '*')
-    {
-      while ((c = yyinput()) == '*')
-        ;
-
-      if (c == '/')
-        return;
-
-      if (c == 0)
-        break;
-    }
-  printf("unterminated comment");
-}

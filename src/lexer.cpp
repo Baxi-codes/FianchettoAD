@@ -6,10 +6,15 @@
 
 #include "lexer.h"
 extern "C" Token yylex();
-extern "C" FILE *yyin;
+extern void yyrestart( FILE *new_file );
 
 Lexer::Lexer(const std::string &source) : source(source), position(0) {
-  yyin = fopen(source.c_str(), "r");
+  file_ptr = fopen(source.c_str(), "r");
+  yyrestart(file_ptr);
+}
+
+Lexer::~Lexer() {
+  fclose(file_ptr);
 }
 
 std::vector<Token> Lexer::tokenize() {

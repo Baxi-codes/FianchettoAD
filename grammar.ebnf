@@ -48,7 +48,7 @@ unary_expression      ::= postfix_expression
 postfix_expression    ::= primary_expression
                          | postfix_expression "[" expression "]"
                          | postfix_expression "(" [ argument_list ] ")"
-                         | identifier "'(" expression ")" // Derivative call
+                         | identifier {"'"} "(" expression ")" // Derivative call
 primary_expression    ::= identifier
                          | constant
                          | "(" expression ")"
