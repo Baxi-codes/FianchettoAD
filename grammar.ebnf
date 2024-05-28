@@ -2,7 +2,7 @@ program        ::= { function_definition | global_declaration }
 function_definition ::= type_specifier identifier "(" parameter_list ")" compound_statement
 parameter_list      ::= parameter { "," parameter } | /* empty */
 parameter           ::= type_specifier identifier
-global_declaration  ::= type_specifier identifier [ "=" expression ] ";"
+global_declaration  ::= "let" type_specifier identifier [ "=" expression ] ";"
 type_specifier ::= "int" | "float" | "double" | "void" | "differentiable" type_specifier
 statement           ::= expression_statement
                       | compound_statement
@@ -15,40 +15,32 @@ selection_statement ::= "if" "(" expression ")" statement [ "else" statement ]
 iteration_statement ::= "while" "(" expression ")" statement
                       | "for" "(" [ expression ] ";" [ expression ] ";" [ expression ] ")" statement
 jump_statement      ::= "return" [ expression ] ";"
-declaration ::= type_specifier identifier [ "=" expression ] ";"
+declaration ::= "let" type_specifier identifier [ "=" expression ] ";"
 expression           ::= assignment_expression
 assignment_expression ::= conditional_expression
                          | unary_expression assignment_operator assignment_expression
 conditional_expression ::= logical_or_expression
                          | logical_or_expression "?" expression ":" conditional_expression
-logical_or_expression  ::= logical_and_expression
-                         | logical_or_expression "||" logical_and_expression
-logical_and_expression ::= equality_expression
-                         | logical_and_expression "&&" equality_expression
-equality_expression   ::= relational_expression
-                         | equality_expression "==" relational_expression
-                         | equality_expression "!=" relational_expression
-relational_expression ::= additive_expression
-                         | relational_expression "<" additive_expression
-                         | relational_expression ">" additive_expression
-                         | relational_expression "<=" additive_expression
-                         | relational_expression ">=" additive_expression
-additive_expression   ::= multiplicative_expression
-                         | additive_expression "+" multiplicative_expression
-                         | additive_expression "-" multiplicative_expression
-multiplicative_expression ::= unary_expression
-                         | multiplicative_expression "*" unary_expression
-                         | multiplicative_expression "/" unary_expression
-                         | multiplicative_expression "%" unary_expression
+logical_or_expression  ::= logical_and_expression { "||" logical_or_expression }
+logical_and_expression ::= equality_expression { "&&" logical_and_expression }
+equality_expression   ::= relational_expression { equality_operator equality_expression }
+equality_operator     ::= "!=" | "==" 
+relational_expression ::= additive_expression { relational_operator relational_expression }
+relational_operator   ::= "<" | ">" | "<=" | ">="
+additive_expression   ::= multiplicative_expression { additive_operator additive_expression }
+additive_operator     ::= "+" | "-"
+multiplicative_expression ::= unary_expression { multiplicative_operator multiplicative_expression }
+multiplicative_operator ::= "*" | "/" | "%"
 unary_expression      ::= postfix_expression
                          | "!" unary_expression
                          | "-" unary_expression
                          | "++" unary_expression
                          | "--" unary_expression
-postfix_expression    ::= primary_expression
-                         | postfix_expression "[" expression "]"
-                         | postfix_expression "(" [ argument_list ] ")"
-                         | identifier {"'"} "(" expression ")" // Derivative call
+postfix_expression    ::= primary_expression { postfix_operator }
+postfix_operator      ::= "++"
+                         | "--"
+                         | "[" expression "]"
+                         | {"'"} "(" [ argument_list ] ")"
 primary_expression    ::= identifier
                          | constant
                          | "(" expression ")"

@@ -2,6 +2,8 @@
 
 FianchettoAD is a programming language that supports automatic differentiation (autodiff) out of the box. With FianchettoAD, you can easily compute derivatives of functions without having to implement differentiation manually. 
 
+The language is currently under development and is incomplete. If you would like to help completing it, feel free to make a pull request!
+
 ## Features
 
 - **Built-in Automatic Differentiation**: Calculate derivatives of functions effortlessly.
@@ -49,7 +51,7 @@ brew install flex
 
 ### Windows
 
-You can download the installer from the [Official Releases](https://github.com/westes/flex/releases) and follow the installation instructions.
+You can download it from the [Official Releases](https://github.com/westes/flex/releases) and follow the installation instructions.
 
 ## Building FianchettoAD
 

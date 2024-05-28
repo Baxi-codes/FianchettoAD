@@ -22,11 +22,10 @@ int column = 1;
 "/*"                                            { BEGIN(COMMENT); } // Begin of a multiline comment
 <COMMENT>{
     "*/"    { BEGIN(INITIAL); } // End of a multiline comment
-    [^*\n]+ { column = 1; }  // eat comment in chunks
-    "*"     {  }  // eat the lone star
     \n      { column = 1; } // Reset column number at the end of each line
     .       {  } // Ignore other characters
 }
+"let"                                           { return Token{TokenType::KEYWORD, yytext, yylineno, column - yyleng}; }
 "differentiable"                                { return Token{TokenType::KEYWORD, yytext, yylineno, column - yyleng}; }
 "if"                                            { return Token{TokenType::KEYWORD, yytext, yylineno, column - yyleng}; }
 "else"                                          { return Token{TokenType::KEYWORD, yytext, yylineno, column - yyleng}; }
