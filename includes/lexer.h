@@ -18,10 +18,16 @@ enum class TokenType {
   END_OF_FILE
 };
 
+struct Location {
+  std::string filename;
+  int line;
+  int column;
+}
+
 struct Token {
   TokenType type;
   std::string value;
-  int line,column;
+  Location loc;
 };
 
 class Lexer {

@@ -26,7 +26,8 @@ int main(int argc, char const *argv[]) {
       std::cout << "PRIME: ";
     if (token.type == TokenType::END_OF_FILE)
       std::cout << "END_OF_FILE: ";
-    std::cout << token.value << " at line " << token.line << " column " << token.column << std::endl;
-	}
-	return 0;
+    std::cout << token.value << " at line " << token.loc.line << " column "
+              << token.loc.column << std::endl;
+  }
+        return 0;
 }
