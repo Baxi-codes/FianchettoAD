@@ -22,7 +22,7 @@ struct Location {
   std::string filename;
   int line;
   int column;
-}
+};
 
 struct Token {
   TokenType type;

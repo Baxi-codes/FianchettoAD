@@ -29,5 +29,5 @@ int main(int argc, char const *argv[]) {
     std::cout << token.value << " at line " << token.loc.line << " column "
               << token.loc.column << std::endl;
   }
-        return 0;
+  return 0;
 }

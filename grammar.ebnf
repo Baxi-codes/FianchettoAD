@@ -1,9 +1,9 @@
 program        ::= { function_definition | global_declaration }
-function_definition ::= type_specifier identifier "(" parameter_list ")" compound_statement
+function_definition ::= ["differentiable"] "fn" type_specifier identifier "(" parameter_list ")" compound_statement
 parameter_list      ::= parameter { "," parameter } | /* empty */
 parameter           ::= type_specifier identifier
 global_declaration  ::= "let" type_specifier identifier [ "=" expression ] ";"
-type_specifier ::= "int" | "float" | "double" | "void" | "differentiable" type_specifier
+type_specifier      ::= "int" | "float" | "double" | "void"
 statement           ::= expression_statement
                       | compound_statement
                       | selection_statement
@@ -13,12 +13,14 @@ expression_statement ::= [ expression ] ";"
 compound_statement  ::= "{" { declaration | statement } "}"
 selection_statement ::= "if" "(" expression ")" statement [ "else" statement ]
 iteration_statement ::= "while" "(" expression ")" statement
-                      | "for" "(" [ expression ] ";" [ expression ] ";" [ expression ] ")" statement
-jump_statement      ::= "return" [ expression ] ";"
+                      | "for" "(" for_declaration ";" [ expression ] ";" [ expression ] ")" statement
+for_declaration     ::= ("let" type_specifier identifier [ "=" expression ]) | [expression]
+jump_statement      ::= ("return" [ expression ] | "continue" | "break") ";"
 declaration ::= "let" type_specifier identifier [ "=" expression ] ";"
-expression           ::= assignment_expression
+expression            ::= assignment_expression
 assignment_expression ::= conditional_expression
                          | unary_expression assignment_operator assignment_expression
+assignment_expression ::= "+=" | "-=" | "/=" | '%='
 conditional_expression ::= logical_or_expression
                          | logical_or_expression "?" expression ":" conditional_expression
 logical_or_expression  ::= logical_and_expression { "||" logical_or_expression }

@@ -26,6 +26,7 @@ int column = 1;
     .       {  } // Ignore other characters
 }
 "let"                                           { return Token{TokenType::KEYWORD, yytext, {source, yylineno, column - yyleng}}; }
+"fn"                                            { return Token{TokenType::KEYWORD, yytext, {source, yylineno, column - yyleng}}; }
 "differentiable"                                { return Token{TokenType::KEYWORD, yytext, {source, yylineno, column - yyleng}}; }
 "if"                                            { return Token{TokenType::KEYWORD, yytext, {source, yylineno, column - yyleng}}; }
 "else"                                          { return Token{TokenType::KEYWORD, yytext, {source, yylineno, column - yyleng}}; }
