@@ -1,14 +1,18 @@
 #ifndef STATEMENT_H
 #define STATEMENT_H
 
-#include "ast/ast.h"
-#include "ast/expression.h"
 #include <cassert>
 #include <memory>
 #include <vector>
 
+#include "ast/astnode.h"
+#include "ast/expression.h"
+
+class ASTNode;
 class StatementAST;
 class ExpressionAST;
+
+using ASTNodePtr = std::shared_ptr<ASTNode>;
 using StatementASTPtr = std::shared_ptr<StatementAST>;
 using ExpressionASTPtr = std::shared_ptr<ExpressionAST>;
 
@@ -59,12 +63,12 @@ public:
 };
 
 class ForStatementAST : public StatementAST {
-  StatementASTPtr start;
+  ASTNodePtr start;
   ExpressionASTPtr end, step;
   StatementASTPtr body;
 
 public:
-  ForStatementAST(StatementASTPtr start, ExpressionASTPtr end,
+  ForStatementAST(ASTNodePtr start, ExpressionASTPtr end,
                   ExpressionASTPtr step, StatementASTPtr body)
       : start(start), end(end), step(step), body(body) {}
   void accept(ASTVisitor *v) override;
