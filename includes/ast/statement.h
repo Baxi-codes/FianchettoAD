@@ -68,8 +68,8 @@ class ForStatementAST : public StatementAST {
   StatementASTPtr body;
 
 public:
-  ForStatementAST(ASTNodePtr start, ExpressionASTPtr end,
-                  ExpressionASTPtr step, StatementASTPtr body)
+  ForStatementAST(ASTNodePtr start, ExpressionASTPtr end, ExpressionASTPtr step,
+                  StatementASTPtr body)
       : start(start), end(end), step(step), body(body) {}
   void accept(ASTVisitor *v) override;
 };

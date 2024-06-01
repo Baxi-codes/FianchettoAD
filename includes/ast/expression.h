@@ -62,7 +62,8 @@ class TernaryExpressionAST : public ExpressionAST {
   ExpressionASTPtr falseExpr; // The expression if the condition is false
 
 public:
-  TernaryExpressionAST(ExpressionASTPtr condition, ExpressionASTPtr trueExpr, ExpressionASTPtr falseExpr)
+  TernaryExpressionAST(ExpressionASTPtr condition, ExpressionASTPtr trueExpr,
+                       ExpressionASTPtr falseExpr)
       : condition(condition), trueExpr(trueExpr), falseExpr(falseExpr) {}
 
   void accept(ASTVisitor *v) override;
@@ -85,7 +86,5 @@ public:
   ConstantExpressionAST(const std::string &value) : value(value) {}
   void accept(ASTVisitor *v) override;
 };
-
-
 
 #endif // EXPRESSION_H
