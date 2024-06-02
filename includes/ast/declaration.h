@@ -28,6 +28,20 @@ public:
                          ExpressionASTPtr initial_value)
       : type(type), name(name), initial_value(initial_value),
         has_initial_value(1) {}
+
+  std::string get_type() const { return type; }
+  void set_type(const std::string &t) { type = t; }
+
+  std::string get_name() const { return name; }
+  void set_name(const std::string &n) { name = n; }
+
+  ExpressionASTPtr get_initial_value() const { return initial_value; }
+  void set_initial_value(ExpressionASTPtr value) { initial_value = value; }
+
+  bool get_has_initial_value() const { return has_initial_value; }
+  void set_has_initial_value(bool has_value) { has_initial_value = has_value; }
+
+  void accept(ASTVisitor *v) override;
 };
 
 class FunctionDefinitionAST : public ASTNode {
@@ -38,6 +52,17 @@ public:
   FunctionDefinitionAST(std::string type, std::string name,
                         StatementASTPtr body)
       : return_type(type), name(name), body(body) {}
+
+  std::string get_return_type() const { return return_type; }
+  void set_return_type(const std::string &type) { return_type = type; }
+
+  std::string get_name() const { return name; }
+  void set_name(const std::string &n) { name = n; }
+
+  StatementASTPtr get_body() const { return body; }
+  void set_body(StatementASTPtr b) { body = b; }
+
+  void accept(ASTVisitor *v) override;
 };
 
 #endif // DECLARATION_H

@@ -4,7 +4,7 @@ differentiable double square(double x) {
 
 /*
   This is a multiline comment
-*/  /* **/  edfrgefgdfgte
+*/
 
 int main() {
   double y = square(5.0);

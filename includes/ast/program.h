@@ -16,6 +16,23 @@ public:
       std::vector<std::shared_ptr<VariableDeclarationAST>> global_declarations)
       : function_definitions(functions),
         global_declarations(global_declarations) {}
+
+  std::vector<std::shared_ptr<FunctionDefinitionAST>> get_function_definitions() const { 
+      return function_definitions; 
+  }
+  
+  void set_function_definitions(const std::vector<std::shared_ptr<FunctionDefinitionAST>> &functions) { 
+      function_definitions = functions; 
+  }
+
+  std::vector<std::shared_ptr<VariableDeclarationAST>> get_global_declarations() const { 
+      return global_declarations; 
+  }
+
+  void set_global_declarations(const std::vector<std::shared_ptr<VariableDeclarationAST>> &declarations) { 
+      global_declarations = declarations; 
+  }
+
   void accept(ASTVisitor *v) override;
 };
 
