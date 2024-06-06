@@ -19,7 +19,7 @@ using ExpressionASTPtr = std::shared_ptr<ExpressionAST>;
 class VariableDeclarationAST : public ASTNode {
   std::string type, name;
   ExpressionASTPtr initial_value;
-  bool has_initial_value;
+  bool has_initial_value, is_global_variable;
 
 public:
   VariableDeclarationAST(std::string type, std::string name)
@@ -40,6 +40,9 @@ public:
 
   bool get_has_initial_value() const { return has_initial_value; }
   void set_has_initial_value(bool has_value) { has_initial_value = has_value; }
+
+  bool get_has_global_variable() const { return has_global_variable; }
+  void set_has_global_variable(bool is_global) { has_global_variable = is_global; }
 
   void accept(ASTVisitor *v) override;
 };

@@ -1,6 +1,8 @@
 #include "utils/ast_printer.h"
 #include "ast.h"
 
+// TODO: update printers for FunctionDefinition, VariableDeclaration
+
 void ASTPrinter::printIndent() {
   for (int i = 0; i < indentLevel; ++i) {
     std::cout << "  ";
