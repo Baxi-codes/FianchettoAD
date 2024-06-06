@@ -21,7 +21,7 @@ set(SOURCES
     src/ast.cpp
     src/utils/ast_printer.cpp
     ${FLEX_LexerScanner_OUTPUTS}
-    tests/ast_test.cpp
+    tests/lexer_test.cpp
 )
 
 # Add executable

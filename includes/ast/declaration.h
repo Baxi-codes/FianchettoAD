@@ -46,6 +46,7 @@ public:
 
 class FunctionDefinitionAST : public ASTNode {
   std::string return_type, name;
+  std::vector<std::string> argument_types, argument_names;
   StatementASTPtr body;
 
 public:
@@ -58,6 +59,12 @@ public:
 
   std::string get_name() const { return name; }
   void set_name(const std::string &n) { name = n; }
+
+  std::vector<std::string> get_argument_types() const { return argument_types; }
+  void set_argument_types(std::vector<std::string> types) { argument_types = types; }
+
+  std::vector<std::string> get_argument_names() const { return argument_names; }
+  void set_argument_names(std::vector<std::string> names) { argument_names = names; }
 
   StatementASTPtr get_body() const { return body; }
   void set_body(StatementASTPtr b) { body = b; }
