@@ -67,8 +67,6 @@ class SelectionStatementAST : public StatementAST {
   StatementASTPtr body, else_body;
 
 public:
-  SelectionStatementAST(ExpressionASTPtr condition, StatementASTPtr body)
-      : condition(condition), body(body) {}
   SelectionStatementAST(ExpressionASTPtr condition, StatementASTPtr body,
                         StatementASTPtr else_body)
       : condition(condition), body(body), else_body(else_body) {}
@@ -103,17 +101,17 @@ public:
 };
 
 class ForStatementAST : public StatementAST {
-  ASTNodePtr start;
+  StatementASTPtr start;
   ExpressionASTPtr end, step;
   StatementASTPtr body;
 
 public:
-  ForStatementAST(ASTNodePtr start, ExpressionASTPtr end, ExpressionASTPtr step,
+  ForStatementAST(StatementASTPtr start, ExpressionASTPtr end, ExpressionASTPtr step,
                   StatementASTPtr body)
       : start(start), end(end), step(step), body(body) {}
 
-  ASTNodePtr get_start() const { return start; }
-  void set_start(ASTNodePtr s) { start = s; }
+  StatementASTPtr get_start() const { return start; }
+  void set_start(StatementASTPtr s) { start = s; }
 
   ExpressionASTPtr get_end() const { return end; }
   void set_end(ExpressionASTPtr e) { end = e; }
@@ -128,20 +126,20 @@ public:
 };
 
 class JumpStatementAST : public StatementAST {
-  std::string jumpStamentKind;
+  std::string jump_stament_kind;
   ExpressionASTPtr return_value;
 
 public:
-  JumpStatementAST(std::string jumpStamentKind)
-      : jumpStamentKind(jumpStamentKind), return_value(nullptr) {}
-  JumpStatementAST(std::string jumpStamentKind, ExpressionASTPtr return_value)
-      : jumpStamentKind(jumpStamentKind), return_value(return_value) {
-    assert(jumpStamentKind == "return" &&
+  JumpStatementAST(std::string jump_stament_kind)
+      : jump_stament_kind(jump_stament_kind), return_value(nullptr) {}
+  JumpStatementAST(std::string jump_stament_kind, ExpressionASTPtr return_value)
+      : jump_stament_kind(jump_stament_kind), return_value(return_value) {
+    assert(jump_stament_kind == "return" &&
            "Only return kind of jump statements take the second argument");
   }
 
-  std::string get_jumpStamentKind() const { return jumpStamentKind; }
-  void set_jumpStamentKind(const std::string &kind) { jumpStamentKind = kind; }
+  std::string get_jump_stament_kind() const { return jump_stament_kind; }
+  void set_jump_stament_kind(const std::string &kind) { jump_stament_kind = kind; }
 
   ExpressionASTPtr get_return_value() const { return return_value; }
   void set_return_value(ExpressionASTPtr value) { return_value = value; }

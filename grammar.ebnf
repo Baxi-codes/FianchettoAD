@@ -13,13 +13,12 @@ expression_statement ::= [ expression ] ";"
 compound_statement  ::= "{" { declaration | statement } "}"
 selection_statement ::= "if" "(" expression ")" statement [ "else" statement ]
 iteration_statement ::= "while" "(" expression ")" statement
-                      | "for" "(" for_declaration ";" [ expression ] ";" [ expression ] ")" statement
+                      | "for" "(" statement [ expression ] ";" [ expression ] ")" statement
 for_declaration     ::= ("let" type_specifier identifier [ "=" expression ]) | [expression]
 jump_statement      ::= ("return" [ expression ] | "continue" | "break") ";"
 declaration ::= "let" type_specifier identifier [ "=" expression ] ";"
 expression            ::= assignment_expression
-assignment_expression ::= conditional_expression
-                         | unary_expression assignment_operator assignment_expression
+assignment_expression ::= logical_or_expression assignment_operator assignment_expression
 assignment_expression ::= "+=" | "-=" | "/=" | '%='
 conditional_expression ::= logical_or_expression
                          | logical_or_expression "?" expression ":" conditional_expression

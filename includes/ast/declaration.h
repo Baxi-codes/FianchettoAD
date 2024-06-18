@@ -22,12 +22,11 @@ class VariableDeclarationAST : public ASTNode {
   bool has_initial_value, is_global_variable;
 
 public:
-  VariableDeclarationAST(std::string type, std::string name)
-      : type(type), name(name), initial_value(nullptr), has_initial_value(0) {}
   VariableDeclarationAST(std::string type, std::string name,
-                         ExpressionASTPtr initial_value)
-      : type(type), name(name), initial_value(initial_value),
-        has_initial_value(1) {}
+                         bool has_initial_value, bool is_global_variable)
+      : type(type), name(name), initial_value(nullptr),
+        has_initial_value(has_initial_value),
+        is_global_variable(is_global_variable) {}
 
   std::string get_type() const { return type; }
   void set_type(const std::string &t) { type = t; }
@@ -41,8 +40,10 @@ public:
   bool get_has_initial_value() const { return has_initial_value; }
   void set_has_initial_value(bool has_value) { has_initial_value = has_value; }
 
-  bool get_has_global_variable() const { return has_global_variable; }
-  void set_has_global_variable(bool is_global) { has_global_variable = is_global; }
+  bool get_is_global_variable() const { return is_global_variable; }
+  void set_is_global_variable(bool is_global) {
+    is_global_variable = is_global;
+  }
 
   void accept(ASTVisitor *v) override;
 };
@@ -51,11 +52,16 @@ class FunctionDefinitionAST : public ASTNode {
   std::string return_type, name;
   std::vector<std::string> argument_types, argument_names;
   StatementASTPtr body;
+  bool differentiable;
 
 public:
   FunctionDefinitionAST(std::string type, std::string name,
-                        StatementASTPtr body)
-      : return_type(type), name(name), body(body) {}
+                        std::vector<std::string> argument_types,
+                        std::vector<std::string> argument_names,
+                        StatementASTPtr body, bool differentiable)
+      : return_type(type), name(name), body(body),
+        differentiable(differentiable), argument_types(argument_types),
+        argument_names(argument_names) {}
 
   std::string get_return_type() const { return return_type; }
   void set_return_type(const std::string &type) { return_type = type; }

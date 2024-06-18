@@ -35,7 +35,8 @@ int column = 1;
 "return"                                        { return Token{TokenType::KW_return, yytext, {source, yylineno, column - yyleng}}; }
 "int"                                           { return Token{TokenType::KW_int, yytext, {source, yylineno, column - yyleng}}; }
 "float"                                         { return Token{TokenType::KW_float, yytext, {source, yylineno, column - yyleng}}; }
-"double"                                        { return Token{TokenType::KW_double, yytext, {source, yylineno, column - yyleng}}; }
+"string"                                        { return Token{TokenType::KW_string, yytext, {source, yylineno, column - yyleng}}; }
+"bool"                                          { return Token{TokenType::KW_bool, yytext, {source, yylineno, column - yyleng}}; }
 "void"                                          { return Token{TokenType::KW_void, yytext, {source, yylineno, column - yyleng}}; }
 [a-zA-Z_][a-zA-Z0-9_]*                          { return Token{TokenType::IDENTIFIER, yytext, {source, yylineno, column - yyleng}}; }
 [0-9]*"."[0-9]+([eE][-+]?[0-9]+)?               { return Token{TokenType::FLOAT_LITERAL, yytext, {source, yylineno, column - yyleng}}; }
