@@ -19,9 +19,10 @@ FLEX_TARGET(LexerScanner src/lexer.l ${CMAKE_CURRENT_BINARY_DIR}/lexer.yy.cpp)
 set(SOURCES
     src/lexer.cpp
     src/ast.cpp
+    src/parser.cpp
     src/utils/ast_printer.cpp
     ${FLEX_LexerScanner_OUTPUTS}
-    tests/lexer_test.cpp
+    tests/parser_test.cpp
 )
 
 # Add executable

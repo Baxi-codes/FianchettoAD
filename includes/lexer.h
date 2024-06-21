@@ -12,6 +12,7 @@ enum class TokenType {
   KW_let,
   KW_int,
   KW_float,
+  KW_double,
   KW_string,
   KW_bool,
   KW_void,
@@ -96,8 +97,8 @@ class Lexer {
   std::string source;
   size_t position;
   FILE* file_ptr;
-  Token nextToken();
 public:
+  Token nextToken();
   Lexer(const std::string &source);
   std::vector<Token> tokenize();
   ~Lexer();

@@ -149,7 +149,7 @@ void ASTPrinter::visit(ForStatementAST *node) {
 
 void ASTPrinter::visit(JumpStatementAST *node) {
   printIndent();
-  std::cout << "JumpStatementAST: " << node->get_jumpStamentKind() << std::endl;
+  std::cout << "JumpStatementAST: " << node->get_jump_stament_kind() << std::endl;
   if (node->get_return_value()) {
     incrementIndent();
     node->get_return_value()->accept(this);

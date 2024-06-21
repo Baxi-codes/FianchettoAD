@@ -15,6 +15,7 @@ public:
   virtual void visit(BinopExpressionAST *node) = 0;
   virtual void visit(PrefixExpressionAST *node) = 0;
   virtual void visit(PostfixExpressionAST *node) = 0;
+  virtual void visit(FunctionCallAST *node) = 0;
   virtual void visit(SubscriptExpressionAST *node) = 0;
   virtual void visit(TernaryExpressionAST *node) = 0;
   virtual void visit(VariableExpressionAST *node) = 0;

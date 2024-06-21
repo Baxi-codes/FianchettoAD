@@ -1,8 +1,4 @@
-#include "ast/astnode.h"
-#include "ast/declaration.h"
-#include "ast/expression.h"
-#include "ast/statement.h"
-#include "ast/program.h"
+#include "ast.h"
 #include "visitor.h"
 
 // Implementations of accept methods for each AST node type
@@ -30,6 +26,10 @@ void PostfixExpressionAST::accept(ASTVisitor *v) {
 }
 
 void SubscriptExpressionAST::accept(ASTVisitor *v) {
+    v->visit(this);
+}
+
+void FunctionCallAST::accept(ASTVisitor *v) {
     v->visit(this);
 }
 

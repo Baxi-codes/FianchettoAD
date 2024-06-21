@@ -70,6 +70,26 @@ public:
   void accept(ASTVisitor *v) override;
 };
 
+class FunctionCallAST : public ExpressionAST {
+  ExpressionASTPtr functionName; // The name of the function being called
+  std::vector<ExpressionASTPtr> arguments; // The arguments to the function
+
+public:
+  // Constructor
+  FunctionCallAST(ExpressionASTPtr functionName, std::vector<ExpressionASTPtr> arguments)
+      : functionName(functionName), arguments(arguments) {}
+
+  // Getters and Setters
+  ExpressionASTPtr get_functionName() const { return functionName; }
+  void set_functionName(const ExpressionASTPtr &name) { functionName = name; }
+
+  std::vector<ExpressionASTPtr> get_arguments() const { return arguments; }
+  void set_arguments(const std::vector<ExpressionASTPtr> &args) { arguments = args; }
+
+  void accept(ASTVisitor *v) override;
+};
+
+
 class SubscriptExpressionAST : public ExpressionAST {
   ExpressionASTPtr baseExpression;
   ExpressionASTPtr indexExpression;

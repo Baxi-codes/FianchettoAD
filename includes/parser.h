@@ -2,7 +2,7 @@
 #define PARSER_H 
 
 #include <string>
-#include <pair>
+#include <utility>
 #include "lexer.h"
 #include "ast.h"
 
@@ -44,7 +44,7 @@ private:
   std::shared_ptr<StatementAST> parse_iteration_statement();
   std::shared_ptr<StatementAST> parse_jump_statement();
   std::shared_ptr<ExpressionAST> parse_expression();
-  bool ensure_lvalue(ExpressionASTPtr expr);
+  bool ensure_lvalue(const ExpressionASTPtr &expr);
   std::shared_ptr<ExpressionAST> parse_assignment_expression();
   std::shared_ptr<ExpressionAST> parse_logical_or_expression();
   std::shared_ptr<ExpressionAST> parse_logical_and_expression();
