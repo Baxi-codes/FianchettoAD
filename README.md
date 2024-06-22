@@ -27,7 +27,7 @@ let int foo;
 
 fn int main() {
   let double y = square(5.0);
-  let double dydx = square(5.0); // Derivative of square at x = 5.0
+  let double dydx = square'(5.0); // Derivative of square at x = 5.0
   if (dydx == 10.0) {
     printf("Fianchetto AD is awesome!");
   }
