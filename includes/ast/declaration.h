@@ -23,8 +23,8 @@ class VariableDeclarationAST : public ASTNode {
 
 public:
   VariableDeclarationAST(std::string type, std::string name,
-                         bool has_initial_value, bool is_global_variable)
-      : type(type), name(name), initial_value(nullptr),
+                         bool has_initial_value, bool is_global_variable, ExpressionASTPtr initial_value)
+      : type(type), name(name), initial_value(initial_value),
         has_initial_value(has_initial_value),
         is_global_variable(is_global_variable) {}
 

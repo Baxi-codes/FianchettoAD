@@ -1,171 +1,217 @@
 #include "utils/ast_printer.h"
-#include "ast.h"
-
-// TODO: update printers for FunctionDefinition, VariableDeclaration
 
 void ASTPrinter::printIndent() {
   for (int i = 0; i < indentLevel; ++i) {
-    std::cout << "  ";
+    std::cout << "  ";  // Print two spaces per indentation level
   }
-}
-
-void ASTPrinter::incrementIndent() {
-  ++indentLevel;
-}
-
-void ASTPrinter::decrementIndent() {
-  --indentLevel;
 }
 
 void ASTPrinter::visit(VariableDeclarationAST *node) {
   printIndent();
-  std::cout << "VariableDeclarationAST: " << node->get_type() << " " << node->get_name();
+  std::cout << "VariableDeclaration: " << node->get_type() << " " << node->get_name() << "\n";
   if (node->get_has_initial_value()) {
-    std::cout << " = ";
+    printIndent();
+    std::cout << " initial_value: \n";
+    ++indentLevel;
     node->get_initial_value()->accept(this);
+    --indentLevel;
   }
-  std::cout << std::endl;
+  printIndent();
+  std::cout << " (is_global: " << (node->get_is_global_variable() ? "true" : "false") << ")\n";
 }
 
 void ASTPrinter::visit(FunctionDefinitionAST *node) {
   printIndent();
-  std::cout << "FunctionDefinitionAST: " << node->get_return_type() << " " << node->get_name() << std::endl;
-  incrementIndent();
-  node->get_body()->accept(this);
-  decrementIndent();
+  std::cout << "FunctionDefinition: " << node->get_return_type() << " " << node->get_name() << "(";
+  for (size_t i = 0; i < node->get_argument_names().size(); ++i) {
+    std::cout << node->get_argument_types()[i] << " " << node->get_argument_names()[i];
+    if (i < node->get_argument_names().size() - 1) {
+      std::cout << ", ";
+    }
+  }
+  std::cout << ")";
+  if (node->get_body()) {
+    std::cout << " {\n";
+    ++indentLevel;
+    node->get_body()->accept(this);
+    --indentLevel;
+    printIndent();
+    std::cout << "}\n";
+  }
 }
 
 void ASTPrinter::visit(BinopExpressionAST *node) {
   printIndent();
-  std::cout << "BinopExpressionAST: " << node->get_operation() << std::endl;
-  incrementIndent();
+  std::cout << "BinopExpression: (" << node->get_operation() << ")\n";
+  ++indentLevel;
   node->get_LHS()->accept(this);
   node->get_RHS()->accept(this);
-  decrementIndent();
+  --indentLevel;
 }
 
 void ASTPrinter::visit(PrefixExpressionAST *node) {
   printIndent();
-  std::cout << "PrefixExpressionAST: " << node->get_operation() << std::endl;
-  incrementIndent();
+  std::cout << "PrefixExpression: (" << node->get_operation() << ")\n";
+  ++indentLevel;
   node->get_operand()->accept(this);
-  decrementIndent();
+  --indentLevel;
 }
 
 void ASTPrinter::visit(PostfixExpressionAST *node) {
   printIndent();
-  std::cout << "PostfixExpressionAST: " << node->get_operation() << std::endl;
-  incrementIndent();
+  std::cout << "PostfixExpression: (" << node->get_operation() << ")\n";
+  ++indentLevel;
   node->get_operand()->accept(this);
-  decrementIndent();
+  --indentLevel;
+}
+
+void ASTPrinter::visit(FunctionCallAST *node) {
+  printIndent();
+  std::cout << "FunctionCall:\n";
+  ++indentLevel;
+  node->get_functionName()->accept(this);
+  printIndent();
+  std::cout << "(\n";
+  ++indentLevel;
+  for (size_t i = 0; i < node->get_arguments().size(); ++i) {
+    node->get_arguments()[i]->accept(this);
+    if (i < node->get_arguments().size() - 1) {
+      std::cout << ", \n";
+    }
+  }
+  --indentLevel;
+  printIndent();
+  std::cout << ")\n";
+  --indentLevel;
 }
 
 void ASTPrinter::visit(SubscriptExpressionAST *node) {
   printIndent();
-  std::cout << "SubscriptExpressionAST" << std::endl;
-  incrementIndent();
+  std::cout << "SubscriptExpression: \n";
+  ++indentLevel;
   node->get_baseExpression()->accept(this);
   node->get_indexExpression()->accept(this);
-  decrementIndent();
+  --indentLevel;
 }
 
 void ASTPrinter::visit(TernaryExpressionAST *node) {
   printIndent();
-  std::cout << "TernaryExpressionAST" << std::endl;
-  incrementIndent();
+  std::cout << "TernaryExpression: \n";
+  ++indentLevel;
+  std::cout << "Condition: \n";
   node->get_condition()->accept(this);
+  std::cout << "TrueExpr: \n";
   node->get_trueExpr()->accept(this);
+  std::cout << "FalseExpr: \n";
   node->get_falseExpr()->accept(this);
-  decrementIndent();
+  --indentLevel;
 }
 
 void ASTPrinter::visit(VariableExpressionAST *node) {
   printIndent();
-  std::cout << "VariableExpressionAST: " << node->get_name() << std::endl;
+  std::cout << "VariableExpression: " << node->get_name() << "\n";
 }
 
 void ASTPrinter::visit(ConstantExpressionAST *node) {
   printIndent();
-  std::cout << "ConstantExpressionAST: " << node->get_value() << std::endl;
-}
-
-void ASTPrinter::visit(ExpressionStatementAST *node) {
-  printIndent();
-  std::cout << "ExpressionStatementAST" << std::endl;
-  incrementIndent();
-  node->get_expression()->accept(this);
-  decrementIndent();
+  std::cout << "ConstantExpression: " << node->get_value() << "\n";
 }
 
 void ASTPrinter::visit(DeclarationStatementAST *node) {
   printIndent();
-  std::cout << "DeclartionStatementAST" << std::endl;
-  incrementIndent();
+  std::cout << "DeclarationStatement:\n";
+  ++indentLevel;
   node->get_declaration()->accept(this);
-  decrementIndent();
+  --indentLevel;
+}
+
+void ASTPrinter::visit(ExpressionStatementAST *node) {
+  printIndent();
+  std::cout << "ExpressionStatement:\n";
+  ++indentLevel;
+  node->get_expression()->accept(this);
+  --indentLevel;
 }
 
 void ASTPrinter::visit(CompoundStatementAST *node) {
   printIndent();
-  std::cout << "CompoundStatementAST" << std::endl;
-  incrementIndent();
+  std::cout << "CompoundStatement: {\n";
+  ++indentLevel;
   for (const auto &stmt : node->get_statements()) {
     stmt->accept(this);
   }
-  decrementIndent();
+  --indentLevel;
+  printIndent();
+  std::cout << "}\n";
 }
 
 void ASTPrinter::visit(SelectionStatementAST *node) {
   printIndent();
-  std::cout << "SelectionStatementAST" << std::endl;
-  incrementIndent();
+  std::cout << "SelectionStatement (if):\n";
+  ++indentLevel;
+  printIndent();
+  std::cout << "Condition:\n";
   node->get_condition()->accept(this);
+  printIndent();
+  std::cout << "Body:\n";
   node->get_body()->accept(this);
   if (node->get_else_body()) {
+    std::cout << "Else Body:\n";
     node->get_else_body()->accept(this);
   }
-  decrementIndent();
+  --indentLevel;
 }
 
 void ASTPrinter::visit(WhileStatementAST *node) {
   printIndent();
-  std::cout << "WhileStatementAST" << std::endl;
-  incrementIndent();
+  std::cout << "WhileStatement:\n";
+  ++indentLevel;
+  std::cout << "Condition:\n";
   node->get_condition()->accept(this);
+  std::cout << "Body:\n";
   node->get_body()->accept(this);
-  decrementIndent();
+  --indentLevel;
 }
 
 void ASTPrinter::visit(ForStatementAST *node) {
   printIndent();
-  std::cout << "ForStatementAST" << std::endl;
-  incrementIndent();
+  std::cout << "ForStatement:\n";
+  ++indentLevel;
+  std::cout << "Start:\n";
   node->get_start()->accept(this);
+  std::cout << "End:\n";
   node->get_end()->accept(this);
+  std::cout << "Step:\n";
   node->get_step()->accept(this);
+  std::cout << "Body:\n";
   node->get_body()->accept(this);
-  decrementIndent();
+  --indentLevel;
 }
 
 void ASTPrinter::visit(JumpStatementAST *node) {
   printIndent();
-  std::cout << "JumpStatementAST: " << node->get_jump_stament_kind() << std::endl;
-  if (node->get_return_value()) {
-    incrementIndent();
+  std::cout << "JumpStatement (" << node->get_jump_stament_kind() << ")";
+  if (node->get_jump_stament_kind() == "return" && node->get_return_value()) {
+    std::cout << " with value:\n";
+    ++indentLevel;
     node->get_return_value()->accept(this);
-    decrementIndent();
+    --indentLevel;
+  } else {
+    std::cout << "\n";
   }
 }
 
 void ASTPrinter::visit(ProgramAST *node) {
   printIndent();
-  std::cout << "ProgramAST" << std::endl;
-  incrementIndent();
-  for (const auto &func : node->get_function_definitions()) {
+  std::cout << "Program:\n";
+  ++indentLevel;
+  std::cout << "Global Declarations:\n";
+  for (auto decl : node->get_global_declarations()) {
+    decl->accept(this);
+  }
+  std::cout << "Function Definitions:\n";
+  for (auto func : node->get_function_definitions()) {
     func->accept(this);
   }
-  for (const auto &global : node->get_global_declarations()) {
-    global->accept(this);
-  }
-  decrementIndent();
+  --indentLevel;
 }

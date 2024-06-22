@@ -93,6 +93,8 @@ struct Token {
   std::string get_type();
 };
 
+std::string tt_to_str(TokenType type);
+
 class Lexer {
   std::string source;
   size_t position;
@@ -102,6 +104,7 @@ public:
   Lexer(const std::string &source);
   std::vector<Token> tokenize();
   ~Lexer();
+  friend class Parser;
 };
 
 

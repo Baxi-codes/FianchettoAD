@@ -9,6 +9,10 @@ extern "C" Token yylex();
 extern void yyrestart( FILE *new_file );
 
 std::string Token::get_type() {
+    return tt_to_str(type);
+}
+
+std::string tt_to_str(TokenType type) {
     switch (type) {
         case TokenType::KW_differentiable: return "KW_differentiable";
         case TokenType::KW_fn: return "KW_fn";

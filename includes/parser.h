@@ -3,8 +3,13 @@
 
 #include <string>
 #include <utility>
+#include <execinfo.h> /* backtrace, backtrace_symbols_fd */
+#include <unistd.h> /* STDOUT_FILENO */
+
 #include "lexer.h"
 #include "ast.h"
+
+void print_stacktrace(void);
 
 // TODO: improve error diagnostics
 
@@ -13,8 +18,10 @@ private:
   Lexer lexer;
   Token current_token;
   void error() {
-    std::cerr << "Unexpected: " << current_token.value << "\n";
+    std::cerr << "Unexpected: " << current_token.get_type() << ": " << current_token.value << " at line " << current_token.loc.line << " column "
+              << current_token.loc.column << std::endl;
     has_error = true;
+    print_stacktrace();
     exit(1);
   }
   void advance() {
@@ -22,6 +29,7 @@ private:
   }
   bool expect(TokenType type) {
     if (current_token.type != type) {
+      std::cerr << "Expected token type" << tt_to_str(type) << "\n";
       error();
       return true;
     }

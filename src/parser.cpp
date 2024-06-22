@@ -6,6 +6,15 @@
 #include <cassert>
 #include <vector>
 
+
+void print_stacktrace(void) {
+    size_t size;
+    enum Constexpr { MAX_SIZE = 1024 };
+    void *array[MAX_SIZE];
+    size = backtrace(array, MAX_SIZE);
+    backtrace_symbols_fd(array, size, STDOUT_FILENO);
+}
+
 using ASTNodePtr = std::shared_ptr<ASTNode>;
 using StatementASTPtr = std::shared_ptr<StatementAST>;
 using ExpressionASTPtr = std::shared_ptr<ExpressionAST>;
@@ -83,7 +92,7 @@ std::shared_ptr<VariableDeclarationAST> Parser::parse_variable_declaration(bool 
     initial_value = std::move(parse_expression());
     consume(TokenType::SEMI);
   }
-  return std::make_shared<VariableDeclarationAST>(type, name, has_initial_value, is_global_variable);
+  return std::make_shared<VariableDeclarationAST>(type, name, has_initial_value, is_global_variable, initial_value);
 }
 
 StatementASTPtr Parser::parse_statement() {
@@ -184,11 +193,14 @@ StatementASTPtr Parser::parse_jump_statement() {
 }
 
 StatementASTPtr Parser::parse_declaration_statement() {
-  return std::make_shared<DeclarationStatementAST>(std::move(parse_variable_declaration()));
+  auto decl = parse_variable_declaration();
+  return std::make_shared<DeclarationStatementAST>(std::move(decl));
 }
 
 StatementASTPtr Parser::parse_expression_statement() {
-  return std::make_shared<ExpressionStatementAST>(std::move(parse_expression()));  
+  auto expr = parse_expression();
+  consume(TokenType::SEMI);
+  return std::make_shared<ExpressionStatementAST>(std::move(expr));
 }
 
 ExpressionASTPtr Parser::parse_expression() {
@@ -210,8 +222,6 @@ ExpressionASTPtr Parser::parse_assignment_expression() {
       operation = current_token.value;
       advance();
       rhs = std::move(parse_assignment_expression());
-    default:
-      error();
   }
   if (rhs) return std::make_shared<BinopExpressionAST>(operation, lhs, rhs);
   return std::move(lhs);
