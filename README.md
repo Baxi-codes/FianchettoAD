@@ -15,7 +15,7 @@ The language is currently under development and is incomplete. If you would like
 Here is a simple example to demonstrate the usage of FianchettoAD:
 
 ```
-differentiable double square(double x) {
+differentiable fn double square(double x) {
   return x * x;
 }
 
@@ -23,9 +23,14 @@ differentiable double square(double x) {
   This is a multiline comment
 */
 
-int main() {
-  double y = square(5.0);
-  double dydx = square'(5.0); // Derivative of square at x = 5.0
+let int foo;
+
+fn int main() {
+  let double y = square(5.0);
+  let double dydx = square(5.0); // Derivative of square at x = 5.0
+  if (dydx == 10.0) {
+    printf("Fianchetto AD is awesome!");
+  }
   return 0;
 }
 ```
