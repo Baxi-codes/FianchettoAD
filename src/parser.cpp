@@ -104,6 +104,7 @@ StatementASTPtr Parser::parse_statement() {
       return std::move(parse_selection_statement());
       break;
     case TokenType::KW_for:
+    case TokenType::KW_while:
       return std::move(parse_iteration_statement());
       break;
     case TokenType::KW_return:
@@ -114,8 +115,6 @@ StatementASTPtr Parser::parse_statement() {
     case TokenType::KW_let:
       return std::move(parse_declaration_statement());
       break;
-    case TokenType::SEMI:
-      return nullptr;
     default:
       return parse_expression_statement();
   }
@@ -351,8 +350,20 @@ std::shared_ptr<ExpressionAST> Parser::parse_primary_expression() {
     } else if (current_token.type == TokenType::INTEGER_LITERAL || current_token.type == TokenType::FLOAT_LITERAL ||
                current_token.type == TokenType::STRING_LITERAL) {
         auto constant = current_token.value;
+        std::string type;
+        switch (current_token.type) {
+        case TokenType::INTEGER_LITERAL:
+          type = "int";
+          break;
+        case TokenType::FLOAT_LITERAL:
+          type = "float";
+          break;
+        case TokenType::STRING_LITERAL:
+          type = "string";
+          break;
+        }
         advance();
-        return std::make_shared<ConstantExpressionAST>(constant);
+        return std::make_shared<ConstantExpressionAST>(constant, type);
     } else if (current_token.type == TokenType::L_PAREN) {
         advance();
         auto expr = parse_expression();

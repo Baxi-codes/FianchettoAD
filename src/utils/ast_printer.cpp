@@ -114,7 +114,8 @@ void ASTPrinter::visit(VariableExpressionAST *node) {
 
 void ASTPrinter::visit(ConstantExpressionAST *node) {
   printIndent();
-  std::cout << "ConstantExpression: " << node->get_value() << "\n";
+  std::cout << "ConstantExpression: " << node->get_value() << " ( type "
+            << node->get_type() << " )" << "\n";
 }
 
 void ASTPrinter::visit(DeclarationStatementAST *node) {
@@ -166,10 +167,17 @@ void ASTPrinter::visit(WhileStatementAST *node) {
   printIndent();
   std::cout << "WhileStatement:\n";
   ++indentLevel;
+  printIndent();
   std::cout << "Condition:\n";
+  ++indentLevel;
+  printIndent();
   node->get_condition()->accept(this);
+  --indentLevel;
+  printIndent();
   std::cout << "Body:\n";
+  ++indentLevel;
   node->get_body()->accept(this);
+  --indentLevel;
   --indentLevel;
 }
 
@@ -177,14 +185,24 @@ void ASTPrinter::visit(ForStatementAST *node) {
   printIndent();
   std::cout << "ForStatement:\n";
   ++indentLevel;
+  printIndent();
   std::cout << "Start:\n";
   node->get_start()->accept(this);
+  printIndent();
   std::cout << "End:\n";
+  ++indentLevel;
   node->get_end()->accept(this);
+  --indentLevel;
+  printIndent();
   std::cout << "Step:\n";
+  ++indentLevel;
   node->get_step()->accept(this);
+  --indentLevel;
+  printIndent();
   std::cout << "Body:\n";
+  ++indentLevel;
   node->get_body()->accept(this);
+  --indentLevel;
   --indentLevel;
 }
 
@@ -205,13 +223,19 @@ void ASTPrinter::visit(ProgramAST *node) {
   printIndent();
   std::cout << "Program:\n";
   ++indentLevel;
+  printIndent();
   std::cout << "Global Declarations:\n";
+  ++indentLevel;
   for (auto decl : node->get_global_declarations()) {
     decl->accept(this);
   }
+  --indentLevel;
+  printIndent();
   std::cout << "Function Definitions:\n";
+  ++indentLevel;
   for (auto func : node->get_function_definitions()) {
     func->accept(this);
   }
+  --indentLevel;
   --indentLevel;
 }

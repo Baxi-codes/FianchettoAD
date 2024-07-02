@@ -40,7 +40,7 @@ unary_expression      ::= postfix_expression
 postfix_expression    ::= primary_expression { postfix_operator }
 postfix_operator      ::= "++"
                          | "--"
-                         | "[" expression "]"
+                         | "[" argument_list "]"
                          | {"'"} "(" [ argument_list ] ")"
 primary_expression    ::= identifier
                          | constant

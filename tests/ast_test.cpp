@@ -24,7 +24,7 @@ int main() {
     statements.push_back(exprStmt);
     statements.push_back(ret);
     auto compStmt = std::make_shared<CompoundStatementAST>(statements);
-    
+
     auto funcDef = std::make_shared<FunctionDefinitionAST>("void", "main", compStmt);
 
     std::vector<std::shared_ptr<FunctionDefinitionAST>> functions;

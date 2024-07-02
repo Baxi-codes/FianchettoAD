@@ -143,12 +143,17 @@ public:
 
 class ConstantExpressionAST : public ExpressionAST {
   std::string value;
+  std::string type;
 
 public:
-  ConstantExpressionAST(const std::string &value) : value(value) {}
+  ConstantExpressionAST(const std::string &value, const std::string &type)
+      : value(value), type(type) {}
 
   std::string get_value() const { return value; }
   void set_value(const std::string &val) { value = val; }
+
+  std::string get_type() const { return type; }
+  void set_type(const std::string &typ) { type = typ; }
 
   void accept(ASTVisitor *v) override;
 };
