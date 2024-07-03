@@ -37,6 +37,7 @@ set(SOURCES
     src/ast.cpp
     src/parser.cpp
     src/symbol_table.cpp
+    src/llvm_codegen.cpp
     src/utils/ast_printer.cpp
     ${FLEX_LexerScanner_OUTPUTS}
     tests/symbol_table_test.cpp
