@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "-g")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -ggdb3 -Wall -Wextra -pedantic -rdynamic")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -ggdb3 -rdynamic")
 
 
 # Add include directories
@@ -39,8 +39,8 @@ set(SOURCES
     src/symbol_table.cpp
     src/llvm_codegen.cpp
     src/utils/ast_printer.cpp
+    tests/parser_test.cpp
     ${FLEX_LexerScanner_OUTPUTS}
-    tests/symbol_table_test.cpp
 )
 
 # Add executable

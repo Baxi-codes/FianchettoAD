@@ -1,25 +1,29 @@
 #ifndef LLVM_CODEGEN_H
 #define LLVM_CODEGEN_H
 
+#include <iostream>
 #include <llvm/IR/IRBuilder.h>
 #include <llvm/IR/LLVMContext.h>
 #include <llvm/IR/Module.h>
 #include <llvm/IR/Verifier.h>
 
-#include "visitor.h"
 #include "ast.h"
 #include "symbol_table.h"
+#include "visitor.h"
 
 class LLVMCodegenVisitor : public ASTVisitor {
-  llvm::LLVMContext context;
+  std::unique_ptr<llvm::LLVMContext> context;
   std::unique_ptr<llvm::Module> module;
-  llvm::IRBuilder<> builder;
+  std::unique_ptr<llvm::IRBuilder<>> builder;
   SymbolTable symbol_table;
-  llvm::Value* current_value;
+  llvm::Value *current_value;
 
 public:
-  LLVMCodegenVisitor(const std::string &moduleName)
-      : module(std::make_unique<llvm::Module>(moduleName, context)), builder(context) {}
+  LLVMCodegenVisitor(const std::string &moduleName) {
+    context = std::make_unique<llvm::LLVMContext>();
+    module = std::make_unique<llvm::Module>(moduleName, *context);
+    builder = std::make_unique<llvm::IRBuilder<>>(*context);
+  }
 
   std::unique_ptr<llvm::Module> getModule() { return std::move(module); }
 
@@ -44,12 +48,13 @@ public:
   void visit(JumpStatementAST *node) override;
 
 private:
-  llvm::Value* logError(const std::string &msg) {
+  llvm::Value *logError(const std::string &msg) {
     std::cerr << "Error: " << msg << std::endl;
     return nullptr;
   }
-  
-  llvm::Value* getLLVMValue(ExpressionASTPtr expr);
+
+  llvm::Type *getLLVMType(const std::string &typeName);
+  llvm::Value *getLLVMValue(ExpressionASTPtr expr);
 };
 
 #endif // LLVM_CODEGEN_H

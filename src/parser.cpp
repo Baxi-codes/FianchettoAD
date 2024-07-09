@@ -2,17 +2,17 @@
 #include "ast.h"
 #include "lexer.h"
 
-#include <memory>
 #include <cassert>
+#include <cstddef>
+#include <memory>
 #include <vector>
 
-
 void print_stacktrace(void) {
-    size_t size;
-    enum Constexpr { MAX_SIZE = 1024 };
-    void *array[MAX_SIZE];
-    size = backtrace(array, MAX_SIZE);
-    backtrace_symbols_fd(array, size, STDOUT_FILENO);
+  std::size_t size;
+  enum Constexpr { MAX_SIZE = 1024 };
+  void *array[MAX_SIZE];
+  size = backtrace(array, MAX_SIZE);
+  backtrace_symbols_fd(array, size, STDOUT_FILENO);
 }
 
 using ASTNodePtr = std::shared_ptr<ASTNode>;

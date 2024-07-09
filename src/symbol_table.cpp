@@ -13,7 +13,8 @@ void SymbolTable::popScope() {
 }
 
 // Add a symbol to the current scope
-void SymbolTable::addSymbol(const std::string &name, const std::string &type, llvm::Value *value) {
+void SymbolTable::addSymbol(const std::string &name, const std::string &type,
+                            llvm::Value *value) {
   if (scopes.empty()) {
     std::cerr << "Error: No active scope to add a symbol!" << std::endl;
     return;
@@ -36,11 +37,8 @@ llvm::Value *SymbolTable::lookupSymbol(const std::string &name) {
   return nullptr; // Symbol not found
 }
 
-std::string SymbolTable::getType(const std::string name) {
-  if (types[name]) {
-    return types[name];
-  }
-  return nullptr;
+std::string SymbolTable::getType(const std::string &name) {
+  return types[name];
 }
 
 // Optional: Helper function to print the current scopes for debugging

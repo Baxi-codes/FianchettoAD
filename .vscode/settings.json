@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "*.lpp": "lex",
+    "vector": "cpp"
+  }
+}
