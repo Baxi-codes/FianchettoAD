@@ -84,7 +84,7 @@ std::shared_ptr<VariableDeclarationAST> Parser::parse_variable_declaration(bool 
   type = current_token.value;
   advance();
   expect(TokenType::IDENTIFIER);
-  type = current_token.value;
+  name = current_token.value;
   advance();
   if (current_token.type == TokenType::EQUAL) {
     has_initial_value = 1;

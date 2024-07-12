@@ -8,7 +8,8 @@ void ASTPrinter::printIndent() {
 
 void ASTPrinter::visit(VariableDeclarationAST *node) {
   printIndent();
-  std::cout << "VariableDeclaration: " << node->get_type() << " " << node->get_name() << "\n";
+  std::cout << "VariableDeclaration: " << node->get_name() << " ( type "
+            << node->get_type() << " )\n";
   if (node->get_has_initial_value()) {
     printIndent();
     std::cout << " initial_value: \n";
@@ -157,6 +158,7 @@ void ASTPrinter::visit(SelectionStatementAST *node) {
   std::cout << "Body:\n";
   node->get_body()->accept(this);
   if (node->get_else_body()) {
+    printIndent();
     std::cout << "Else Body:\n";
     node->get_else_body()->accept(this);
   }

@@ -1,0 +1,15 @@
+let int x = 1;
+let float y = 2.37855;
+
+fn int fact(int n) {
+    if (!n) {
+        return 1;
+    }
+    return fact(n - 1);
+}
+
+fn int main(){
+    let int x = 4;
+    if(fact(x) > 1) return x;
+    else return 3;
+}

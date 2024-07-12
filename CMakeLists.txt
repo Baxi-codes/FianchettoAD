@@ -18,6 +18,10 @@ find_package(FLEX REQUIRED)
 # Define the target for the Flex output
 FLEX_TARGET(LexerScanner src/lexer.l ${CMAKE_CURRENT_BINARY_DIR}/lexer.yy.cpp)
 
+# Argparse
+
+add_subdirectory(external/argparse)
+
 # Find and configure LLVM
 find_package(LLVM REQUIRED CONFIG)
 message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
@@ -29,7 +33,7 @@ add_definitions(${LLVM_DEFINITIONS_LIST})
 
 
 # Link against the necessary LLVM components
-llvm_map_components_to_libnames(llvm_libs support core irreader)
+llvm_map_components_to_libnames(core support target targetparser mc mcjit x86 x86asmparser x86codegen x86desc x86disassembler x86info x86targetmca webassembly webassemblyasmparser webassemblycodegen webassemblydesc webassemblydisassembler webassemblyinfo webassemblyutils irreader bitwriter asmparser asmprinter instrumentation analysis transformutils scalaropts vectorize aggressiveinstcombine passes)
 
 # Add source files
 set(SOURCES
@@ -39,10 +43,10 @@ set(SOURCES
     src/symbol_table.cpp
     src/llvm_codegen.cpp
     src/utils/ast_printer.cpp
-    tests/parser_test.cpp
+    src/main.cpp
     ${FLEX_LexerScanner_OUTPUTS}
 )
 
 # Add executable
 add_executable(FianchettoAD ${SOURCES})
-target_link_libraries(FianchettoAD ${llvm_libs})
+target_link_libraries(FianchettoAD ${llvm_libs} argparse)
