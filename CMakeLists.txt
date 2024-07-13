@@ -33,7 +33,7 @@ add_definitions(${LLVM_DEFINITIONS_LIST})
 
 
 # Link against the necessary LLVM components
-llvm_map_components_to_libnames(core support target targetparser mc mcjit x86 x86asmparser x86codegen x86desc x86disassembler x86info x86targetmca webassembly webassemblyasmparser webassemblycodegen webassemblydesc webassemblydisassembler webassemblyinfo webassemblyutils irreader bitwriter asmparser asmprinter instrumentation analysis transformutils scalaropts vectorize aggressiveinstcombine passes)
+llvm_map_components_to_libnames(llvm_libs support core irreader mc AArch64 AMDGPU ARM AVR BPF Hexagon Lanai LoongArch Mips MSP430 NVPTX PowerPC RISCV Sparc SystemZ VE WebAssembly X86 XCore)
 
 # Add source files
 set(SOURCES

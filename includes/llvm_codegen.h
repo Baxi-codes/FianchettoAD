@@ -47,51 +47,51 @@ public:
     llvm::InitializeAllAsmParsers();
     llvm::InitializeAllAsmPrinters();
 
-    std::string targetTriple;
-    if (target == "native") {
-        targetTriple = llvm::sys::getDefaultTargetTriple();
-    } else if (target == "wasm") {
-        targetTriple = "wasm32-unknown-unknown-wasm";
-    } else {
-        llvm::errs() << "Unsupported target: " << target << "\n";
-        return;
-    }
-    
-    module->setTargetTriple(targetTriple);
+    auto TargetTriple = llvm::sys::getDefaultTargetTriple();
+    module->setTargetTriple(TargetTriple);
+    std::cout << TargetTriple << std::endl;
+    std::string Error;
+    auto Target = llvm::TargetRegistry::lookupTarget(TargetTriple, Error);
 
-    std::string error;
-    auto Target = llvm::TargetRegistry::lookupTarget(targetTriple, error);
-
+    // Print an error and exit if we couldn't find the requested target.
+    // This generally occurs if we've forgotten to initialise the
+    // TargetRegistry or we have a bogus target triple.
     if (!Target) {
-        llvm::errs() << error;
-        return;
+      llvm::errs() << Error;
+      return;
     }
 
     auto CPU = "generic";
-    auto features = "";
+    auto Features = "";
 
     llvm::TargetOptions opt;
-    auto RM = std::optional<llvm::Reloc::Model>();
-    auto theTargetMachine = Target->createTargetMachine(targetTriple, CPU, features, opt, RM);
+    auto TheTargetMachine = Target->createTargetMachine(
+        TargetTriple, CPU, Features, opt, llvm::Reloc::PIC_);
 
-    module->setDataLayout(theTargetMachine->createDataLayout());
-    module->setTargetTriple(targetTriple);
+    module->setDataLayout(TheTargetMachine->createDataLayout());
 
+    auto Filename = "output.o";
     std::error_code EC;
-    llvm::raw_fd_ostream dest(filename.c_str(), EC, llvm::sys::fs::OF_None);
+    llvm::raw_fd_ostream dest(Filename, EC, llvm::sys::fs::OF_None);
 
-    llvm::legacy::PassManager pass;
-    auto fileType = llvm::CodeGenFileType::ObjectFile;
-
-    if (theTargetMachine->addPassesToEmitFile(pass, dest, nullptr, fileType)) {
-        llvm::errs() << "theTargetMachine can't emit a file of this type";
-        return;
+    if (EC) {
+      llvm::errs() << "Could not open file: " << EC.message();
+      return;
     }
 
-    pass.run(*module.get());
+    llvm::legacy::PassManager pass;
+    auto FileType = llvm::CodeGenFileType::ObjectFile;
+
+    if (TheTargetMachine->addPassesToEmitFile(pass, dest, nullptr, FileType)) {
+      llvm::errs() << "TheTargetMachine can't emit a file of this type";
+      return;
+    }
+
+    pass.run(*module);
     dest.flush();
 
-    llvm::outs() << "Object code written to " << filename.c_str() << "\n";
+    llvm::outs() << "Object code written to " << Filename << "\n";
+
   }
 
   std::shared_ptr<llvm::Module> getModule() { return std::move(module); }

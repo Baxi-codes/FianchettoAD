@@ -267,9 +267,17 @@ void LLVMCodegenVisitor::visit(TernaryExpressionAST *node) {
 
 void LLVMCodegenVisitor::visit(VariableExpressionAST *node) {
   std::string name = node->get_name();
-  current_value =
-      builder->CreateLoad(getLLVMType(symbol_table.getType(name)),
-                          symbol_table.lookupSymbol(name), "loadtmp");
+  llvm::Value* val = symbol_table.lookupSymbol(name);
+  llvm::Type* type = getLLVMType(symbol_table.getType(name));
+  if (llvm::AllocaInst* AI = llvm::dyn_cast<llvm::AllocaInst>(val))
+  {
+    current_value =
+        builder->CreateLoad(AI->getType(),
+                            AI, "loadtmp");
+  }
+  else  if(llvm::Argument* arg = llvm::dyn_cast<llvm::Argument>(val)) {
+    current_value = arg;
+  }
 }
 
 void LLVMCodegenVisitor::visit(ConstantExpressionAST *node) {
